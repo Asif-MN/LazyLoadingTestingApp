@@ -1,2 +1,0 @@
-# LazyLoadingTestingApp
-Created with CodeSandbox

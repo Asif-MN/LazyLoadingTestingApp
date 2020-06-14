@@ -1,0 +1,45 @@
+<div class="container" style="margin-top:2%">
+    <h2>Apply Leave</h2>
+    <form [formGroup]="applyForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+            <label for="leaveType">Leave Type</label>
+            <select formControlName="leaveType" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.leaveType.errors }">
+                <option>Choose Leave Type</option>
+                <option disabled>Select Leave Type</option>
+                <option *ngFor="let leave of leaveTypes">{{leave}}</option>
+            </select>
+            <div *ngIf="submitted && f.leaveType.errors" class="invalid-feedback">
+                <div *ngIf="f.leaveType.errors.required">Leave Type is required</div>
+                <div *ngIf="f.leaveType.errors.dtrequired">Leave Type should be selected</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="leaveDuration">Leave Duration</label>
+            <input type="text" formControlName="leaveDuration" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.leaveDuration.errors }" />
+            <div *ngIf="submitted && f.leaveDuration.errors" class="invalid-feedback">
+                <div *ngIf="f.leaveDuration.errors.required">Leave Duration is required</div>
+                <div *ngIf="f.leaveDuration.errors.isnumber">Leave Duration should be numeric value</div>
+                <div *ngIf="f.leaveDuration.errors.min">Leave Duration should not less than 1 day</div>
+                <div *ngIf="f.leaveDuration.errors.max">Leave Duration should not more than 10 days</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="reason">Reason</label>
+            <input type="text" formControlName="reason" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.reason.errors }" />
+            <div *ngIf="submitted && f.reason.errors" class="invalid-feedback">
+                <div *ngIf="f.reason.errors.required">Reason is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Apply
+            </button>
+            <a routerLink="/" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>
